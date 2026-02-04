@@ -20,7 +20,9 @@
       buildDateTime = nixpkgs.lib.toIntBase10 (builtins.readFile ./build);
       signing = {
         enable = true;
-        keyStorePath = "/var/secrets/marble-keys/keys";
+        # Only used to suppress warnings for test keys
+        keyStorePath = "${./keys}";
+        buildTimeKeyStorePath = "${./keys}";
       };
 
       apps.updater = {
