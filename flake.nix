@@ -15,8 +15,20 @@
       flavor = "lineageos";
       device = "marble";
       flavorVersion = "23.0";
-      microg.enable = true;
       ccache.enable = true;
+      # generate with "date +%s"
+      buildDateTime = nixpkgs.lib.toIntBase10 (builtins.readFile ./build);
+      signing = {
+        enable = true;
+        keyStorePath = "/var/secrets/marble-keys/keys";
+      };
+
+      apps.updater = {
+        enable = true;
+        flavor = "lineageos";
+        url = "https://hydra.ani.llc/job/marble/marble/packages.x86_64-linux.default/latest/download/1/marble-otaDir/";
+      };
+      microg.enable = true;
     };
     flake.hydraJobs = { inherit (self) packages; };
   };
