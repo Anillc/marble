@@ -93,6 +93,23 @@
         "type": "github"
       }
     },
+    "kernelsu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770214754,
+        "narHash": "sha256-kN6GI7xWA53uHluB5QQUlX7PS4u5ICCZyRK2AbPIFKM=",
+        "owner": "tiann",
+        "repo": "KernelSU",
+        "rev": "92aff05fba3b0f2d031fdaac83cd9aecdfeac7f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tiann",
+        "ref": "v3.1.0",
+        "repo": "KernelSU",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1769740369,
@@ -178,6 +195,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "kernelsu": "kernelsu",
         "nixpkgs": "nixpkgs",
         "robotnix": "robotnix"
       }

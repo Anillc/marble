@@ -1,7 +1,11 @@
 {
   inputs.robotnix.url = "github:nix-community/robotnix";
+  inputs.kernelsu = {
+    url = "github:tiann/KernelSU/v3.1.0";
+    flake = false;
+  };
   outputs = inputs@{
-    self, nixpkgs, flake-parts, robotnix,
+    self, nixpkgs, flake-parts, robotnix, kernelsu
   }: flake-parts.lib.mkFlake { inherit inputs; } {
     systems = [ "x86_64-linux" ];
     perSystem = { pkgs, ... }: {
@@ -46,6 +50,18 @@
         </resources>
         EOF
       '';
+
+      source.dirs."kernel/xiaomi/sm8450".postPatch = ''
+        # kernelsu
+        ln -s ${kernelsu}/kernel drivers/kernelsu
+        echo "obj-\$(CONFIG_KSU) += kernelsu/" >> drivers/Makefile
+        sed -i '/endmenu/isource "drivers/kernelsu/Kconfig"' drivers/Kconfig
+        echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/marble_GKI.config
+      '';
+      apps.prebuilt.KernelSU.apk = pkgs.fetchurl {
+        url = "https://github.com/tiann/KernelSU/releases/download/v3.1.0/KernelSU_v3.1.0_32302-release.apk";
+        sha256 = "sha256-SAxSuOjK9lol+ScCj/UOUMT7WnYuo2FAbW1pkiM+OzE=";
+      };
     });
     flake.hydraJobs = { inherit (self) packages; };
   };
