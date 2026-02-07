@@ -24,8 +24,6 @@
       buildDateTime = nixpkgs.lib.toIntBase10 (builtins.readFile ./build);
       signing = {
         enable = true;
-        # TOOD: update to 4096 after test
-        avb.size = 2048;
         # Only used to suppress warnings for test keys
         keyStorePath = "${./keys}";
         buildTimeKeyStorePath = "${./keys}";
@@ -64,10 +62,6 @@
         sed -i '/endmenu/isource "drivers/kernelsu/Kconfig"' drivers/Kconfig
         echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/marble_GKI.config
       '';
-      apps.prebuilt.KernelSU.apk = pkgs.fetchurl {
-        url = "https://github.com/tiann/KernelSU/releases/download/v3.1.0/KernelSU_v3.1.0_32302-release.apk";
-        sha256 = "sha256-SAxSuOjK9lol+ScCj/UOUMT7WnYuo2FAbW1pkiM+OzE=";
-      };
     });
     flake.hydraJobs = { inherit (self) packages; };
   };
