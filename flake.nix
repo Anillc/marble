@@ -1,5 +1,5 @@
 {
-  inputs.robotnix.url = "github:nix-community/robotnix";
+  inputs.robotnix.url = "github:Anillc/robotnix/fix-lineageos-ota-url";
   inputs.kernelsu = {
     url = "github:tiann/KernelSU/v3.1.0";
     flake = false;
@@ -24,6 +24,8 @@
       buildDateTime = nixpkgs.lib.toIntBase10 (builtins.readFile ./build);
       signing = {
         enable = true;
+        # TOOD: update to 4096 after test
+        avb.size = 2048;
         # Only used to suppress warnings for test keys
         keyStorePath = "${./keys}";
         buildTimeKeyStorePath = "${./keys}";

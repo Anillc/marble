@@ -179,15 +179,16 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1769949983,
-        "narHash": "sha256-pjFtM6R+ltlMN73zFv+860Q2YR6yd0m5fEPtInsOEUQ=",
-        "owner": "nix-community",
+        "lastModified": 1770423925,
+        "narHash": "sha256-UFhW4TNACzpCnkYu/xgDiTcIzV6mQqr1A2EG2HsoKV8=",
+        "owner": "Anillc",
         "repo": "robotnix",
-        "rev": "f00d9d5b1cf09b2856479cf26f35341c514b840a",
+        "rev": "08cb6f442d621cec0d9e7a608e6d11bfbd5e0e54",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "Anillc",
+        "ref": "fix-lineageos-ota-url",
         "repo": "robotnix",
         "type": "github"
       }
