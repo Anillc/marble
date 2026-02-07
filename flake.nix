@@ -57,7 +57,9 @@
 
       source.dirs."kernel/xiaomi/sm8450".postPatch = ''
         # kernelsu
-        ln -s ${kernelsu}/kernel drivers/kernelsu
+        cp -r --no-preserve=mode ${kernelsu}/kernel drivers/kernelsu
+        # update version after updating KernelSU
+        sed -i 's/KSU_VERSION=16/KSU_VERSION=32302/' drivers/kernelsu/Kbuild
         echo "obj-\$(CONFIG_KSU) += kernelsu/" >> drivers/Makefile
         sed -i '/endmenu/isource "drivers/kernelsu/Kconfig"' drivers/Kconfig
         echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/marble_GKI.config
