@@ -1,11 +1,11 @@
 {
-  inputs.robotnix.url = "github:Anillc/robotnix/fix-lineageos-ota-url";
+  inputs.robotnix.url = "github:nix-community/robotnix";
   inputs.kernelsu = {
     url = "github:tiann/KernelSU/v3.1.0";
     flake = false;
   };
   outputs = inputs@{
-    self, nixpkgs, flake-parts, robotnix, kernelsu
+    self, nixpkgs, flake-parts, robotnix, kernelsu,
   }: flake-parts.lib.mkFlake { inherit inputs; } {
     systems = [ "x86_64-linux" ];
     perSystem = { pkgs, ... }: {
@@ -37,11 +37,7 @@
       microg.enable = true;
 
       # workaround for https://github.com/nix-community/robotnix/issues/354
-      product.extraConfig = ''
-        PRODUCT_PACKAGE_OVERLAYS += anillc/overlay
-        # optional libraries of kernelsu apk are causing verification to fail
-        PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
-      '';
+      product.extraConfig = "PRODUCT_PACKAGE_OVERLAYS += anillc/overlay";
       source.dirs."anillc/overlay".src = let
         url = "https://hydra.ani.llc/job/marble/marble/packages.x86_64-linux.default/latest/download/1/marble-otaDir/lineageos-marble.json";
       in pkgs.runCommand "overlay" {} ''
