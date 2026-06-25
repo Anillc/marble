@@ -8,8 +8,9 @@
     self, nixpkgs, flake-parts, robotnix, kernelsu,
   }: flake-parts.lib.mkFlake { inherit inputs; } {
     systems = [ "x86_64-linux" ];
-    perSystem = { pkgs, ... }: {
+    perSystem = { self', pkgs, ... }: {
       packages.default = self.robotnixConfigurations.default.otaDir;
+      checks.default = self'.packages.default;
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [];
         nativeBuildInputs = with pkgs; [];
@@ -61,6 +62,5 @@
         echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/marble_GKI.config
       '';
     });
-    flake.hydraJobs = { inherit (self) packages; };
   };
 }
